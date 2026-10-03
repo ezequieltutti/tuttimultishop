@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Tutti Multishop - Datos de compra</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background-color: #0d0d0d;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+        }
+
+        /* HEADER DE LA TIENDA */
+        .header-top {
+            width: 100%;
+            background-color: #d30a11;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+
+        .header-logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 520px;
+            padding: 0 15px 40px 15px;
+        }
+
+
+        .formulario {
+
+            background-color: #161616;
+
+            width: 100%;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            border: 1px solid #2a2a2a;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            margin-top: 0;
+
+            margin-bottom: 8px;
+
+            color: #ffffff;
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .subtitulo {
+
+            text-align: center;
+
+            color: #b0b0b0;
+
+            margin-bottom: 25px;
+
+            line-height: 1.5;
+
+            font-size: 14px;
+        }
+
+
+        .pedido {
+
+            background: linear-gradient(135deg, #222222 0%, #151515 100%);
+
+            border: 1px solid #333;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .pedido h2 {
+
+            margin: 0 0 10px;
+
+            font-size: 16px;
+
+            color: #d30a11;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        #resumenPedido {
+
+            white-space: pre-line;
+
+            color: #dddddd;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: 600;
+
+            color: #e0e0e0;
+
+            font-size: 14px;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 12px 14px;
+
+            margin-bottom: 18px;
+
+            background-color: #222222;
+
+            border: 1px solid #333333;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            color: #ffffff;
+
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+
+        input:focus {
+
+            outline: none;
+
+            border-color: #d30a11;
+
+            background-color: #2a2a2a;
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            background-color: #d30a11;
+
+            color: #ffffff;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+
+        button:hover {
+
+            background-color: #b5070d;
+        }
+
+        button:active {
+
+            transform: scale(0.99);
+        }
+
+
+        /* BOTÓN LIMPIAR */
+
+        #limpiarCompra {
+
+            margin-top: 12px;
+
+            background-color: #2b2b2b;
+
+            color: #b0b0b0;
+
+            border: 1px solid #383838;
+        }
+
+
+        #limpiarCompra:hover {
+
+            background-color: #383838;
+
+            color: #ffffff;
+        }
+
+
+        #mensaje {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            font-weight: bold;
+        }
+
+
+        .volver {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #888888;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            transition: color 0.2s;
+        }
+
+
+        .volver:hover {
+
+            color: #ffffff;
+
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="header-top">
+    <div class="header-logo">Tutti Multishop</div>
+</div>
+
+<div class="main-container">
+
+<div class="formulario">
+
+
+    <h1>
+        Tutti Multishop
+    </h1>
+
+
+    <p class="subtitulo">
+
+        Para continuar con su compra,
+        complete sus datos.
+
+    </p>
+
+
+    <!-- RESUMEN DEL CARRITO -->
+
+    <div class="pedido">
+
+        <h2>
+            Resumen de su compra
+        </h2>
+
+
+        <div id="resumenPedido">
+
+            Cargando pedido...
+
+        </div>
+
+    </div>
+
+
+    <!-- FORMULARIO -->
+
+    <form
+        id="formulario"
+        action="https://formsubmit.co/ezequiel2300@hotmail.com"
+        method="POST"
+    >
+
+
+        <label for="nombre">
+            Nombre
+        </label>
+
+
+        <input
+            type="text"
+            id="nombre"
+            name="Nombre"
+            required
+        >
+
+
+
+        <label for="apellido">
+            Apellido
+        </label>
+
+
+        <input
+            type="text"
+            id="apellido"
+            name="Apellido"
+            required
+        >
+
+
+
+        <label for="provincia">
+            Provincia
+        </label>
+
+
+        <input
+            type="text"
+            id="provincia"
+            name="Provincia"
+            required
+        >
+
+
+
+        <label for="ciudad">
+            Ciudad
+        </label>
+
+
+        <input
+            type="text"
+            id="ciudad"
+            name="Ciudad"
+            required
+        >
+
+
+
+        <label for="codigo-postal">
+            Código Postal
+        </label>
+
+
+        <input
+            type="text"
+            id="codigo-postal"
+            name="Codigo Postal"
+            required
+        >
+
+
+
+        <!-- PEDIDO -->
+
+        <input
+            type="hidden"
+            id="pedido"
+            name="Pedido"
+        >
+
+
+        <!-- TOTAL -->
+
+        <input
+            type="hidden"
+            id="total"
+            name="Total"
+        >
+
+
+
+        <!-- CONFIGURACIÓN FORMSUBMIT -->
+
+        <input
+            type="hidden"
+            name="_subject"
+            value="Nueva compra - Tutti Multishop"
+        >
+
+
+        <input
+            type="hidden"
+            name="_captcha"
+            value="false"
+        >
+
+
+
+        <!-- BOTÓN ENVIAR -->
+
+        <button type="submit">
+
+            Enviar datos y continuar
+
+        </button>
+
+
+        <!-- BOTÓN LIMPIAR -->
+
+        <button
+            type="button"
+            id="limpiarCompra"
+        >
+
+            Limpiar compra
+
+        </button>
+
+
+    </form>
+
+
+    <a
+        href="index.html"
+        class="volver"
+    >
+
+        ← Volver a la tienda
+
+    </a>
+
+
+    <div id="mensaje"></div>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   CONFIGURACIÓN DE WHATSAPP
+   ===================================================== */
+
+const numeroWhatsApp =
+    "5491100000000";
+
+
+
+/* =====================================================
+   ELEMENTOS
+   ===================================================== */
+
+const formulario =
+    document.getElementById(
+        "formulario"
+    );
+
+
+const mensaje =
+    document.getElementById(
+        "mensaje"
+    );
+
+
+const resumenPedido =
+    document.getElementById(
+        "resumenPedido"
+    );
+
+
+const botonLimpiar =
+    document.getElementById(
+        "limpiarCompra"
+    );
+
+
+
+/* =====================================================
+   RECUPERAR PEDIDO
+   ===================================================== */
+
+let pedido =
+    localStorage.getItem(
+        "pedidoTutti"
+    );
+
+
+let total =
+    localStorage.getItem(
+        "totalTutti"
+    );
+
+
+
+/* =====================================================
+   MOSTRAR PEDIDO
+   ===================================================== */
+
+if (!pedido) {
+
+    resumenPedido.textContent =
+        "No se encontró ningún pedido.";
+
+} else {
+
+    resumenPedido.textContent =
+        pedido;
+
+}
+
+
+
+/* =====================================================
+   CAMPOS OCULTOS
+   ===================================================== */
+
+document.getElementById(
+    "pedido"
+).value =
+    pedido ||
+    "No se encontró el pedido.";
+
+
+document.getElementById(
+    "total"
+).value =
+    total ||
+    "$0";
+
+
+
+/* =====================================================
+   ENVÍO DEL FORMULARIO
+   ===================================================== */
+
+formulario.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+
+        /* =========================
+           OBTENER DATOS
+           ========================= */
+
+        const nombre =
+            document
+                .getElementById("nombre")
+                .value
+                .trim();
+
+
+        const apellido =
+            document
+                .getElementById("apellido")
+                .value
+                .trim();
+
+
+        const provincia =
+            document
+                .getElementById("provincia")
+                .value
+                .trim();
+
+
+        const ciudad =
+            document
+                .getElementById("ciudad")
+                .value
+                .trim();
+
+
+        const codigoPostal =
+            document
+                .getElementById("codigo-postal")
+                .value
+                .trim();
+
+
+
+        /* =========================
+           VALIDACIÓN
+           ========================= */
+
+        if (
+
+            nombre === "" ||
+
+            apellido === "" ||
+
+            provincia === "" ||
+
+            ciudad === "" ||
+
+            codigoPostal === ""
+
+        ) {
+
+            mensaje.textContent =
+                "Por favor, completá todos los campos.";
+
+
+            mensaje.style.color =
+                "#ff4d4d";
+
+
+            return;
+
+        }
+
+
+
+        /* =========================
+           MENSAJE WHATSAPP
+           ========================= */
+
+        const textoWhatsApp =
+
+`Hola, quiero realizar una compra en Tutti Multishop.
+
+DATOS DEL CLIENTE
+
+Nombre: ${nombre}
+Apellido: ${apellido}
+Provincia: ${provincia}
+Ciudad: ${ciudad}
+Código Postal: ${codigoPostal}
+
+PEDIDO
+
+${pedido || "No se encontró el pedido."}
+
+TOTAL: ${total || "$0"}
+
+Quedo a la espera de indicaciones para realizar el pago.`;
+
+
+
+        /* =========================
+           CODIFICAR MENSAJE
+           ========================= */
+
+        const mensajeCodificado =
+            encodeURIComponent(
+                textoWhatsApp
+            );
+
+
+        const urlWhatsApp =
+            `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+
+
+
+        /* =========================
+           ENVIAR DATOS POR EMAIL
+           ========================= */
+
+        const datosFormulario =
+            new FormData(
+                formulario
+            );
+
+
+        fetch(
+            formulario.action,
+            {
+                method: "POST",
+                body: datosFormulario
+            }
+        )
+        .catch(
+            function(error) {
+
+                console.log(
+                    "Error enviando formulario:",
+                    error
+                );
+
+            }
+        );
+
+
+
+        /* =========================
+           MENSAJE
+           ========================= */
+
+        mensaje.textContent =
+            "Abriendo WhatsApp...";
+
+
+        mensaje.style.color =
+            "#25d366";
+
+
+
+        /* =========================
+           ABRIR WHATSAPP
+           ========================= */
+
+        window.location.href =
+            urlWhatsApp;
+
+    }
+);
+
+
+
+/* =====================================================
+   BOTÓN LIMPIAR COMPRA
+   ===================================================== */
+
+botonLimpiar.addEventListener(
+    "click",
+    function() {
+
+
+        /* =========================
+           CONFIRMACIÓN
+           ========================= */
+
+        const confirmar =
+            confirm(
+                "¿Estás seguro de que querés eliminar toda la compra?"
+            );
+
+
+        if (!confirmar) {
+
+            return;
+
+        }
+
+
+
+        /* =========================
+           ELIMINAR CARRITO
+           ========================= */
+
+        localStorage.removeItem(
+            "miTiendaCart"
+        );
+
+
+
+        /* =========================
+           ELIMINAR PEDIDO
+           ========================= */
+
+        localStorage.removeItem(
+            "pedidoTutti"
+        );
+
+
+        localStorage.removeItem(
+            "totalTutti"
+        );
+
+
+
+        /* =========================
+           ACTUALIZAR VARIABLES
+           ========================= */
+
+        pedido = null;
+
+        total = null;
+
+
+
+        /* =========================
+           ACTUALIZAR RESUMEN
+           ========================= */
+
+        resumenPedido.textContent =
+            "No se encontró ningún pedido.";
+
+
+
+        /* =========================
+           ACTUALIZAR CAMPOS OCULTOS
+           ========================= */
+
+        document.getElementById(
+            "pedido"
+        ).value =
+            "No se encontró el pedido.";
+
+
+        document.getElementById(
+            "total"
+        ).value =
+            "$0";
+
+
+
+        /* =========================
+           LIMPIAR FORMULARIO
+           ========================= */
+
+        formulario.reset();
+
+
+
+        /* =========================
+           MENSAJE
+           ========================= */
+
+        mensaje.textContent =
+            "La compra fue eliminada correctamente.";
+
+
+        mensaje.style.color =
+            "#ff4d4d";
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
